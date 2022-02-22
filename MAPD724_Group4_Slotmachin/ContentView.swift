@@ -27,7 +27,7 @@ struct ContentView: View {
         NavigationView{
         ZStack{
             
-            // Backgroung Image
+            // Background Image
             
             Image("Jackpot1").resizable().ignoresSafeArea()
             
@@ -81,9 +81,9 @@ struct ContentView: View {
                     
                     //Resetting the game
                     
-                    {
+                    
                     Image("reset").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
-                    }
+                    
                     Spacer()
                     Image(slots[numbers[0]]).resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).background(Color.white.opacity(0.9)).frame(width: 175.0, height: 175.0).cornerRadius(20)
                     Image(slots[numbers[1]]).resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).background(Color.white.opacity(0.9)).frame(width: 175.0, height: 175.0).cornerRadius(20)
