@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var wins = 0
     @State private var losses = 0
     @State private var winRatio: Float = 0
+    @State private var highScore = 0
     
     var body: some View {
         NavigationView{
@@ -34,7 +35,7 @@ struct ContentView: View {
             VStack{
                HStack{
                     VStack{
-                        //Spacer()
+                        
                         HStack{
                             
                         // Tracking wins and losses
@@ -48,26 +49,30 @@ struct ContentView: View {
                         }
                         .padding(.bottom, 1.0)
                         HStack{
-                        Text("Win Ratio:").foregroundColor(Color.white)
-                            Text(String(self.winRatio) + " %").foregroundColor(Color.white)
+                        Text("High Score:").foregroundColor(Color.white)
+                            Text(String(self.highScore)).foregroundColor(Color.white)
                         }
+                            
                      }
                     Spacer()
                    
-                   // Displaying Jackpot to win
-                   
+                       // Displaying Jackpot to win
+                       
                    Text("Win Jackpot").font(.largeTitle).fontWeight(.bold).foregroundColor(Color.white)
                    Text(String(self.betCoins*10) + "!!").font(.largeTitle).fontWeight(.bold).foregroundColor(Color.white)
-                  
                        
                     Spacer()
+                
+                    
                    HStack{
+                       
                    Image("money").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: 50.0, height: 50.0)
                        Text(String(coins))
                            .font(.largeTitle)
                            .fontWeight(.heavy)
                            .foregroundColor(Color.white)
                    }
+                       
                 }
                 Spacer()
                 HStack{
@@ -80,9 +85,9 @@ struct ContentView: View {
                     })
                     
                     //Resetting the game
-                    
-                    
-                    Image("reset").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                    {
+                        Image("reset").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                    }
                     
                     Spacer()
                     Image(slots[numbers[0]]).resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).background(Color.white.opacity(0.9)).frame(width: 175.0, height: 175.0).cornerRadius(20)
@@ -165,10 +170,22 @@ struct ContentView: View {
                     
                     Spacer()
                     
+                    HStack{
+                        
+                        // Help and Support
+                        
+                        NavigationLink(destination: Help())
+                        {
+                        Image("help").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: 50.0, height: 50.0)
+                        }
+                     Text("  ")
+                    
                     // Quit Game
+                    
                     NavigationLink(destination: QuitConfirmation())
                     {
                         Image("quit").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                    }
                     }
                     
                     
