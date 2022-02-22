@@ -10,8 +10,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Score.highScore, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Score>
     
     private var slots = ["slot1", "slot2", "slot3"]
     
@@ -22,7 +30,7 @@ struct ContentView: View {
     @State private var wins = 0
     @State private var losses = 0
     @State private var winRatio: Float = 0
-    @State private var highScore = 0
+    @State private var highScore: Int = UserDefaults.standard.integer(forKey: "highScore")
     
     var body: some View {
         NavigationView{
@@ -76,6 +84,9 @@ struct ContentView: View {
                 }
                 Spacer()
                 HStack{
+                    
+                    //Resetting the game
+
                     Button(action:{
                         self.wins = 0
                         self.losses = 0
@@ -83,8 +94,6 @@ struct ContentView: View {
                         self.coins = 5000
                         self.betCoins = 10
                     })
-                    
-                    //Resetting the game
                     {
                         Image("reset").resizable(capInsets: EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).aspectRatio(contentMode: .fit).frame(width: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
                     }
@@ -96,7 +105,16 @@ struct ContentView: View {
                     Spacer()
                     
                     // Spin Button
+                    
                     Button(action: {
+                        
+                        // Synchronizing High Score
+                        
+                        if self.coins > self.highScore {
+                            self.highScore = self.coins
+                            
+                            UserDefaults.standard.set(highScore, forKey: "highScore")
+                        }
                         
                         // Changing the images
                         self.numbers[0] = Int.random(in: 0...self.slots.count - 1)
@@ -196,7 +214,17 @@ struct ContentView: View {
             }
         }
        
-    }.navigationViewStyle(StackNavigationViewStyle())
+        }.navigationViewStyle(StackNavigationViewStyle()).onAppear(){
+            
+            // Loading the High Score
+            
+            if self.coins > self.highScore {
+                self.highScore = self.coins
+                
+                UserDefaults.standard.set(highScore, forKey: "highScore")
+            }
+            
+        }
     
 }
 }
